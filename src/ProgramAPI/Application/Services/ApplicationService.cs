@@ -56,7 +56,7 @@ namespace Application.Services
             var application = _mapper.Map<ProgramApplication>(createApplicationDto);
             await _repository.Application.AddAsync(application);
             var applicationResponse = _mapper.Map<ApplicationDto>(application);
-
+            _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} Successfully created application, {applicationResponse}");
             return new SuccessResponse<ApplicationDto>
             {
                 Data = applicationResponse,
@@ -71,19 +71,21 @@ namespace Application.Services
         /// </summary>
         /// <param name="updateApplication"></param>
         /// <returns>ApplicationDto</returns>
-        public async Task<SuccessResponse<ApplicationDto>> Update(UpdateApplicationDto updateApplication, string id)
+        public async Task<SuccessResponse<ApplicationDto>> Update(UpdateApplicationDto updateApplicationDto, string id)
         {
 
-            _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} New Request to UpdateApplicatio, {updateApplication}");
+            _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} New Request to UpdateApplication, {updateApplicationDto}");
 
             var application = await _repository.Application.GetAsync(id);
             Guard.AgainstNull(application);
-            await ValidateQuestion(updateApplication.AdditionalQuestions);
-            var updatedApplication =_mapper.Map(updateApplication, application);
+            await ValidateQuestion(updateApplicationDto.AdditionalQuestions);
+            var updatedApplication =_mapper.Map(updateApplicationDto, application);
             updatedApplication.UpdatedAt = DateTime.UtcNow;
             await _repository.Application.UpdateAsync(id, updatedApplication);
 
             var response = _mapper.Map<ApplicationDto>(updatedApplication);
+
+            _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} Successfully updated application, {response}");
             return new SuccessResponse<ApplicationDto>
             {
                 Data = response,
@@ -111,7 +113,6 @@ namespace Application.Services
                 var existingCustomQuesion = customQuestions.FirstOrDefault( x => x.Id ==  question.Id );
                 if (existingCustomQuesion is null)
                     errors.Add(existingCustomQuesion.Id);
-
           
             }
 

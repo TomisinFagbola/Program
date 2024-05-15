@@ -9,7 +9,18 @@ using System.Threading.Tasks;
 namespace Application.Contracts;
 public interface IApplicationService
 {
+    /// <summary>
+    /// Create application
+    /// </summary>
+    /// <param name="createApplicationDto"></param>
+    /// <returns>ApplicationDto</returns>
     Task<SuccessResponse<ApplicationDto>> Create(CreateApplicationDto createApplicationDto);
-    Task<SuccessResponse<ApplicationDto>> Update(UpdateApplicationDto updateApplication, string id);
+
+    /// <summary>
+    /// Update application
+    /// </summary>
+    /// <param name="updateApplicationDto"></param>
+    /// <returns>ApplicationDto</returns>
+    Task<SuccessResponse<ApplicationDto>> Update(UpdateApplicationDto updateApplicationDto, string id);
 }
 
