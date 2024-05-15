@@ -50,7 +50,7 @@ namespace Application.Services
             }
 
             await ValidateQuestion(createApplicationDto.AdditionalQuestions);
-            if (await IsEmailExist(createApplicationDto.PersonalInformation.Email))
+            if (await IsEmailExist(createApplicationDto.PersonalInformation.Email.Trim()))
                 Guard.AgainstDuplicate(createApplicationDto, "You can't create Application, Email Exist");
 
             var application = _mapper.Map<ProgramApplication>(createApplicationDto);
