@@ -9,6 +9,8 @@ This solution provides a starting point to build a web API to work with Azure Co
 
 This project uses the newer Cosmos DB .NET SDK V3, because it adds support for stream APIs and Cosmos DB Change Feed processor APIs, as well as performance improvements.
 
+Please provide your accountkey and accountendpoint in appsettings.json for Azure Cosmos DB
+
 **(NEW) Endpoints Available**
 * Get CustomQuestion by CustomType which is passed as a query string (GET Method)
 * Create CustomQuestion (POST Method)
