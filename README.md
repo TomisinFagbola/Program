@@ -1,7 +1,7 @@
-##PROGRAMAPI
-
-# Clean Architecture with Repository Pattern using Azure Cosmos DB
+# PROGRAM API
 **UPDATE: all projects in this soluction are in .NET 8. **
+
+Clean Architecture with Repository Pattern using Azure Cosmos DB was used for this project
 
 This solution provides a starting point to build a web API to work with Azure Cosmos DB using **.NET 8** and Azure Cosmos DB .NET V3, based on Clean Architecture and repository design pattern. 
 * Partition key is also implemented through the repository pattern in order to support large scale Cosmos DB.
