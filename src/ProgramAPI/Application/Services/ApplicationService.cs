@@ -80,7 +80,7 @@ namespace Application.Services
             Guard.AgainstNull(application);
             await ValidateQuestion(updateApplication.AdditionalQuestions);
             var updatedApplication =_mapper.Map(updateApplication, application);
-
+            updatedApplication.UpdatedAt = DateTime.UtcNow;
             await _repository.Application.UpdateAsync(id, updatedApplication);
 
             var response = _mapper.Map<ApplicationDto>(updatedApplication);
