@@ -20,6 +20,7 @@ public interface IApplicationService
     /// Update application
     /// </summary>
     /// <param name="updateApplicationDto"></param>
+    /// <param name="id"></param>
     /// <returns>ApplicationDto</returns>
     Task<SuccessResponse<ApplicationDto>> Update(UpdateApplicationDto updateApplicationDto, string id);
 }
