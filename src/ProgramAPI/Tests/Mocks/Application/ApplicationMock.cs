@@ -26,24 +26,11 @@ namespace Tests.Mocks.Application;
             {
                 new()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = "f746b062-62d8-4b2c-a464-8bf67a8db2fe",
                     isAnswered = true,
 
                 },
-                new()
-                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Options = new()
-                    {
-                        "Outgoing",
-                        "Introverted"
-                    }
-                },
-                new()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Value = "24/05/2024",
-                }
+              
             }
 
 
@@ -105,23 +92,8 @@ namespace Tests.Mocks.Application;
             {
                 new()
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    isAnswered = true,
-
-                },
-                new()
-                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Options = new()
-                    {
-                        "Outgoing",
-                        "Introverted"
-                    }
-                },
-                new()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Value = "24/05/2024",
+                    Id = "f746b062-62d8-4b2c-a464-8bf67a8db2fe",
+                    Value = "it works well",
                 }
             }
 

@@ -34,9 +34,9 @@ public class ApplicationTest
     public async Task CanCreateApplication()
     {
         // arrange
-        var SuccessResponseDTOMock = ApplicationMock.SuccessResponseDTOMock;
+        var successResponseDTOMock = ApplicationMock.SuccessResponseDTOMock;
         _mock.Setup(p => p.Application.Create(ApplicationMock.CreateApplicationDtoMock))
-            .Returns(Task.FromResult(SuccessResponseDTOMock));
+            .Returns(Task.FromResult(successResponseDTOMock));
 
         // act
         ApplicationController applicationController = new ApplicationController(_mock.Object);
@@ -45,7 +45,8 @@ public class ApplicationTest
 
         // assert
         Assert.IsType<SuccessResponse<ApplicationDto>>(createdAtActionResult.Value);
-        Assert.Equal(SuccessResponseDTOMock.Data?.Id, result?.Data?.Id);
+        Assert.Equal(successResponseDTOMock.Data?.PersonalInformation.LastName, result?.Data?.PersonalInformation.LastName);
+        Assert.Equal(successResponseDTOMock.Data?.PersonalInformation.FirstName, result?.Data?.PersonalInformation.FirstName);
     }
 
     [Fact]
@@ -53,7 +54,7 @@ public class ApplicationTest
     {
 
         // arrange
-        string id = Guid.NewGuid().ToString();
+        string id = "14f1e884-4524-4da5-9ef9-8f1e749e6585";
         var updateSuccessResponseDTOMock = ApplicationMock.UpdateSuccessResponseDTOMock;
         _mock.Setup(p => p.Application.Update(ApplicationMock.UpdateApplicationDtoMock, id))
             .Returns(Task.FromResult(updateSuccessResponseDTOMock));
@@ -65,8 +66,8 @@ public class ApplicationTest
 
         // assert
         Assert.IsType<SuccessResponse<ApplicationDto>>(okResult.Value);
-        Assert.Equal(updateSuccessResponseDTOMock.Data?.Id, result?.Data?.Id);
-        Assert.Equal(updateSuccessResponseDTOMock.Data?.PersonalInformation.FirstName, result?.Data?.Id);
+        Assert.Equal(updateSuccessResponseDTOMock.Data?.PersonalInformation.LastName, result?.Data?.PersonalInformation.LastName);
+        Assert.Equal(updateSuccessResponseDTOMock.Data?.PersonalInformation.FirstName, result?.Data?.PersonalInformation.FirstName);
     }
 }
 
