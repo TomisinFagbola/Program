@@ -4,12 +4,8 @@ using Domain.Config;
 using Infrastructure.Contracts;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+
 using Serilog;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Configuration;
 using System.Text.Json.Serialization;
 
 namespace API.Extensions

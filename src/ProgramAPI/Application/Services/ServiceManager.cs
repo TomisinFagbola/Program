@@ -1,15 +1,8 @@
 ﻿using Application.Contracts;
 using AutoMapper;
 using Infrastructure.Contracts;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.Services;
 public class ServiceManager : IServiceManager

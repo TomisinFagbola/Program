@@ -19,6 +19,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Application.Services
 {
@@ -48,8 +49,8 @@ namespace Application.Services
                 throw new RestException(HttpStatusCode.BadRequest, " Unable to create application", errors);
             }
 
-            var isEmailExist = await IsEmailExist(createApplicationDto.PersonalInformation.Email);
-            if (isEmailExist)
+            await ValidateQuestion(createApplicationDto.AdditionalQuestions);
+            if (await IsEmailExist(createApplicationDto.PersonalInformation.Email))
                 Guard.AgainstDuplicate(createApplicationDto, "You can't create Application, Email Exist");
 
             var application = _mapper.Map<ProgramApplication>(createApplicationDto);
@@ -77,7 +78,7 @@ namespace Application.Services
 
             var application = await _repository.Application.GetAsync(id);
             Guard.AgainstNull(application);
-
+            await ValidateQuestion(updateApplication.AdditionalQuestions);
             var updatedApplication =_mapper.Map(updateApplication, application);
 
             await _repository.Application.UpdateAsync(id, updatedApplication);
@@ -101,10 +102,22 @@ namespace Application.Services
             return emailExist;
         }
 
-        //private async Task<> ValidateQuestionId(string Id)
-        //{
+        private async Task ValidateQuestion(List<AdditionalQuestionDto> additionalQuestionDtos)
+        {
+            List<string> errors = new();
+            foreach(var question in additionalQuestionDtos)
+            { 
+                var customQuestions = await _repository.CustomQuestion.GetAllAsync();
+                var existingCustomQuesion = customQuestions.FirstOrDefault( x => x.Id ==  question.Id );
+                if (existingCustomQuesion is null)
+                    errors.Add(existingCustomQuesion.Id);
 
-        //}
+          
+            }
+
+            if (errors.Any())
+                throw new RestException(HttpStatusCode.BadRequest, " Unable to create application invalid Custom Question Id", errors);
+        }
         #endregion
     }
 }

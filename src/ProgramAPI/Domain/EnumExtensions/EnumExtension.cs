@@ -6,8 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.EnumExtensions
-{
+namespace Domain.EnumExtensions;
     public static class EnumExtension
     {
         public static string GetDescription(this Enum value)
@@ -18,4 +17,4 @@ namespace Domain.EnumExtensions
             return attribute.Description;
         }
     }
-}
+

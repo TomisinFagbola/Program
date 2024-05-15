@@ -1,8 +1,6 @@
 ﻿using Application.Contracts;
-using Application.Dtos.ApplicationDtos;
 using Application.Dtos.CustomQuestionDtos;
 using Application.Helpers;
-using Application.Validators;
 using AutoMapper;
 using Domain.Entities;
 using Domain.EnumExtensions;
@@ -10,9 +8,8 @@ using Infrastructure.Contracts;
 using Infrastructure.Queries;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Net;
-using System.Threading.Tasks;
+
 
 
 namespace Application.Services;
@@ -32,7 +29,7 @@ IMapper mapper, ILogger<CustomQuestionService> logger) : ICustomQuestionService
     /// <returns>CustomQuestDto</returns>
     public async Task<SuccessResponse<CustomQuestionDto>> Create(CreateCustomQuestionDto createCustomQuestionDto)
     {
-        CustomQuestion customQuestion = null;
+        CustomQuestion customQuestion;
 
 
         _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} New Request to CreateCustomQuestion, {createCustomQuestionDto}");
@@ -64,11 +61,13 @@ IMapper mapper, ILogger<CustomQuestionService> logger) : ICustomQuestionService
     /// <returns>CustomQuestDto</returns>
     public async Task<SuccessResponse<CustomQuestionDto>> Get(string customQuestionType)
     {
+        _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} New Request to GetCustomQuestion by custQuestionType, {customQuestionType}");
         var sqlType = SqlQuery.Type;
         var query = new QueryDefinition(sqlType).WithParameter("@Type", customQuestionType);
         var customQuestion = await _repository.CustomQuestion.GetItemByQueryAsync(query);
         Guard.AgainstNull(customQuestion);
         var responeCustomQuestion = _mapper.Map<CustomQuestionDto>(customQuestion);
+        _logger.LogInformation($"{DateTime.Now:dd-MM-yyyy HH:mm:ss} Successfully  got CustomQuestion by custQuestionType, {responeCustomQuestion}");
         return new SuccessResponse<CustomQuestionDto>
         {
             Data = responeCustomQuestion,
